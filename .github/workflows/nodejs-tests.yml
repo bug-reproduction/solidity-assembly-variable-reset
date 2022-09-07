@@ -7,15 +7,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v1
         with:
           fetch-depth: 1
       - uses: isbang/compose-action@v1.2.0
         with:
-        compose-file: './docker-compose.yml'
-        down-flags: '--volumes'
-        services: |
-          ethereum
+          compose-file: './docker-compose.yml'
+          down-flags: '--volumes'
+          services:
+            - ethereum
 
       - name: Setup Node.js
         uses: actions/setup-node@v1
