@@ -1,4 +1,4 @@
-# Solidity Bug ? and hardhat too
+# Solidity Bug (and hardhat too)
 
 ## INSTALL
 
