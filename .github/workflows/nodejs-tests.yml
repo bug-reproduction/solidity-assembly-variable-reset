@@ -39,4 +39,4 @@ jobs:
         run: yarn format
 
       - name: Running tests
-        run: yarn hardhat --network localhost
+        run: yarn hardhat --network localhost test
