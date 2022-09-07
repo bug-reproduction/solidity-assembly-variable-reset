@@ -14,8 +14,6 @@ jobs:
         with:
           compose-file: './docker-compose.yml'
           down-flags: '--volumes'
-          services:
-            - ethereum
 
       - name: Setup Node.js
         uses: actions/setup-node@v1
