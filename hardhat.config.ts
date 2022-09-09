@@ -28,7 +28,8 @@ const config: HardhatUserConfig = {
 	networks: addForkConfiguration({
 		hardhat: {
 			blockGasLimit: 40000000, // just to show that hardhat fails with out of gas while it should not
-			initialBaseFeePerGas: 0 // to fix : https://github.com/sc-forks/solidity-coverage/issues/652, see https://github.com/sc-forks/solidity-coverage/issues/652#issuecomment-896330136
+			initialBaseFeePerGas: 0, // to fix : https://github.com/sc-forks/solidity-coverage/issues/652, see https://github.com/sc-forks/solidity-coverage/issues/652#issuecomment-896330136
+			gas: 'auto'
 		},
 		localhost: {
 			url: node_url('localhost'),
