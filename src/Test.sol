@@ -9,16 +9,23 @@ contract Test {
 		assembly {
 			let len := calldataload(36)
 			let p := mload(0x40)
-			mstore(p, 0x61FFFF600E60003961FFFF6000F3000000000000000000000000000000000000)
-			let lenByte1 := shr(8, len)
-			let lenByte2 := and(len, 0xFF)
-			mstore8(add(p, 1), lenByte1)
-			mstore8(add(p, 2), lenByte2)
-			mstore8(add(p, 9), lenByte1)
-			mstore8(add(p, 10), lenByte2)
-			calldatacopy(add(p, 14), 68, len)
+			// mstore(p, )
+			// mstore8(add(p, 1), shr(8, len))
+			// mstore8(add(p, 2), and(len, 0xFF))
 
-			newContract := create(0, p, add(len, 14))
+			//0x61LLLL600081600B8239F3000000000000000000000000000000000000000000 where LLLL = length on 2 bytes
+
+			// mstore8(p, 0x61)
+			// mstore(add(p, 1), shl(len, 240))
+			// mstore(add(p, 3), 0x600081600B8239F3000000000000000000000000000000000000000000000000)
+
+			mstore(
+				p,
+				or(shl(and(len, 0xFFFF), 232), 0x610000600081600B8239F3000000000000000000000000000000000000000000)
+			)
+			calldatacopy(add(p, 0x0B), 68, len)
+
+			newContract := create(0, p, add(len, 0x0B))
 			// log1(p, add(len, 14), newContract) // need this line, no idea why, looks like some memory management issues
 		}
 		emit Debug(newContract);
