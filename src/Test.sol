@@ -8,6 +8,9 @@ contract Test {
 		address newContract;
 		assembly {
 			let len := calldataload(36)
+			if gt(len, 0xFFFF) {
+				revert(0, 0)
+			}
 			let p := mload(0x40)
 			// mstore(p, )
 			// mstore8(add(p, 1), shr(8, len))
@@ -19,10 +22,7 @@ contract Test {
 			// mstore(add(p, 1), shl(len, 240))
 			// mstore(add(p, 3), 0x600081600B8239F3000000000000000000000000000000000000000000000000)
 
-			mstore(
-				p,
-				or(shl(and(len, 0xFFFF), 232), 0x610000600081600B8239F3000000000000000000000000000000000000000000)
-			)
+			mstore(p, or(shl(len, 232), 0x610000600081600B8239F3000000000000000000000000000000000000000000))
 			calldatacopy(add(p, 0x0B), 68, len)
 
 			newContract := create(0, p, add(len, 0x0B))
