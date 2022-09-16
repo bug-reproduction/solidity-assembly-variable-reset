@@ -13,9 +13,7 @@ describe('Test', function () {
 	it('works with real data', async function () {
 		const state = await setup();
 		const expectedAddress = await computeNextContractAddress(state.Test);
-		await expect(state.users[0].Test.deployData(example, {gasLimit: 5110428})) //4965910}))
-			.to.emit(state.Test, 'Debug')
-			.withArgs(expectedAddress);
+		await expect(state.users[0].Test.deployData(example)).to.emit(state.Test, 'Debug').withArgs(expectedAddress);
 	});
 
 	it('works with real data and an extra useless log1', async function () {
@@ -35,9 +33,7 @@ describe('Test', function () {
 	it('alternative code works with real data', async function () {
 		const state = await setup();
 		const expectedAddress = await computeNextContractAddress(state.Test);
-		await expect(state.users[0].Test.deployData2(example, {gasLimit: 5110989}))
-			.to.emit(state.Test, 'Debug')
-			.withArgs(expectedAddress);
+		await expect(state.users[0].Test.deployData2(example)).to.emit(state.Test, 'Debug').withArgs(expectedAddress);
 	});
 
 	it('alternative code works with real data and an extra useless log1', async function () {

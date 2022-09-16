@@ -19,8 +19,8 @@ contract Test {
 			calldatacopy(add(p, 14), 68, len)
 
 			newContract := create(0, p, add(len, 14))
-			// log1(p, add(len, 14), newContract) // need this line, no idea why, looks like some memory management issues
 		}
+		require(newContract != address(0), "CREATE_FAILS");
 		emit Debug(newContract);
 	}
 
@@ -56,8 +56,8 @@ contract Test {
 		address newContract;
 		assembly {
 			newContract := create(0, add(deployCode, 32), mload(deployCode))
-			// log1(add(deployCode, 32), mload(deployCode), newContract) // need this line, no idea why, looks like some memory management issues
 		}
+		require(newContract != address(0), "CREATE_FAILS");
 		emit Debug(newContract);
 	}
 
